@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "448205108785",
+    "project_id": "maharlika-80de4",
+    "storage_bucket": "maharlika-80de4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448205108785:android:8dae02a20f6bdbe2780710",
+        "android_client_info": {
+          "package_name": "com.example.maharlika_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448205108785-qfre9alq7ge830c53nmh8hsuvei0u16c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCncYmfoKaxFXIshPrXsBlq8ahPAFrgNF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448205108785-qfre9alq7ge830c53nmh8hsuvei0u16c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
