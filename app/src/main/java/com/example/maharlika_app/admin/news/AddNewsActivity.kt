@@ -1,4 +1,4 @@
-package com.example.maharlika_app.admin.events
+package com.example.maharlika_app.admin.news
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -7,19 +7,16 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import com.example.maharlika.ui.admin.events.ModelEvent
 import com.example.maharlika_app.admin.AdminHolderActivity
-import com.example.maharlika_app.auth.LoginActivity
-import com.example.maharlika_app.databinding.ActivityAddEventBinding
+import com.example.maharlika_app.databinding.ActivityAddNewsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddEventActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityAddEventBinding
+class AddNewsActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityAddNewsBinding
     private lateinit var progressDialog : ProgressDialog
     private lateinit var auth : FirebaseAuth
     private lateinit var storage : FirebaseStorage
@@ -27,8 +24,9 @@ class AddEventActivity : AppCompatActivity() {
     private lateinit var selectedImage : Uri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddEventBinding.inflate(layoutInflater)
+        binding = ActivityAddNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         //init
         auth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
@@ -47,9 +45,7 @@ class AddEventActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
             validateData()
         }
-
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -63,8 +59,8 @@ class AddEventActivity : AppCompatActivity() {
     var title = ""
     var description = ""
     private fun validateData() {
-        title = binding.etTitleEvents.text.toString()
-        description = binding.etDesciptionEvents.text.toString().trim()
+        title = binding.etTitleNews.text.toString()
+        description = binding.etDesciptionNews.text.toString().trim()
         if (title.isEmpty()){
             Toast.makeText(this,"Empty Fields are not allowed", Toast.LENGTH_SHORT).show()
         }
@@ -79,7 +75,7 @@ class AddEventActivity : AppCompatActivity() {
         progressDialog.setMessage("Uploading Image...")
         progressDialog.show()
 
-        val reference = storage.reference.child("EventProfile")
+        val reference = storage.reference.child("NewsProfile")
             .child(Date().time.toString())
         reference.putFile(selectedImage).addOnCompleteListener{
             if (it.isSuccessful){
@@ -90,43 +86,39 @@ class AddEventActivity : AppCompatActivity() {
         }
 
     }
-
     private fun uploadInfo(imgUrl: String) {
-        progressDialog.setMessage("Saving Event...")
+        progressDialog.setMessage("Saving News...")
         progressDialog.show()
-        title = binding.etTitleEvents.text.toString()
-        description = binding.etDesciptionEvents.text.toString().trim()
+        title = binding.etTitleNews.text.toString()
+        description = binding.etDesciptionNews.text.toString().trim()
         val currentDate = getCurrentDate()
         val timestamp = System.currentTimeMillis()
         val currentTime = getCurrentTime()
         val uid = auth.uid
         val hashMap : HashMap<String,Any?> = HashMap()
         hashMap["uid"] = uid
-        hashMap["eventsTitle"] = title
-        hashMap["eventsDescription"] = description
+        hashMap["newsTitle"] = title
+        hashMap["newsDescription"] = description
         hashMap["image"] = imgUrl
         hashMap["currentDate"] = currentDate
         hashMap["currentTime"] = currentTime
         hashMap["id"] = "$timestamp"
 
-        database.getReference("events")
+        database.getReference("news")
             .child(timestamp.toString())
             .setValue(hashMap)
             .addOnCompleteListener{
                 if (it.isSuccessful){
                     progressDialog.dismiss()
-                    startActivity(Intent(this,AdminHolderActivity::class.java))
+                    startActivity(Intent(this, AdminHolderActivity::class.java))
                     finish()
-                    Toast.makeText(this,"Event Added", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"News Added", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     Toast.makeText(this,it.exception!!.message, Toast.LENGTH_SHORT).show()
                 }
             }
     }
-
-
-
     private fun getCurrentTime(): String {
         val tz = TimeZone.getTimeZone("GMT+08:00")
         val c = Calendar.getInstance(tz)

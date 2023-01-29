@@ -43,5 +43,6 @@
     <string name="news_description">News Description</string>
     <string name="cover_photo">Cover Photo</string>
     <string name="_20_20_20">20/20/20</string>
+    <string name="edit_news">Edit News</string>
 
 </resources>
