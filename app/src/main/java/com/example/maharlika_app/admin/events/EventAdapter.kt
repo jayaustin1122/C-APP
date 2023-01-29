@@ -1,4 +1,4 @@
-package com.example.maharlika_app.adapter
+package com.example.maharlika.ui.admin.events
 
 import android.app.AlertDialog
 import android.content.Context
@@ -6,63 +6,79 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.maharlika_app.admin.AdminHolderActivity
+import com.example.maharlika_app.admin.events.EditEventActivity
 import com.example.maharlika_app.databinding.EventItemRowBinding
-import com.example.maharlika_app.model.EventModel
 import com.google.firebase.database.FirebaseDatabase
 
-class AdminEventAdapter: RecyclerView.Adapter<AdminEventAdapter.ViewHolderEvent> {
+
+class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterable{
     private lateinit var binding : EventItemRowBinding
     private val context : Context
-    var eventArrayList : ArrayList<EventModel>
+    public var eventArrayList : ArrayList<ModelEvent>
+    private var filterListEvent : ArrayList<ModelEvent>
+    private var filter : FilterEvents? = null
 
-    constructor(context: Context, eventArrayList: ArrayList<EventModel>) : super() {
+
+    //constructor
+    constructor(context: Context, eventArrayList: ArrayList<ModelEvent>) {
         this.context = context
         this.eventArrayList = eventArrayList
+        this.filterListEvent = eventArrayList
     }
+
+    //inner class to hold ui in row item event
     inner class ViewHolderEvent(itemView: View): RecyclerView.ViewHolder(itemView){
         var title : TextView = binding.tvTitle
         var description : TextView = binding.tvDesc
         var moreBtn : ImageButton = binding.btnMore
-
+        var image : ImageView = binding.imgPicture
+        var currentDate : TextView = binding.textViewNoteDate
+        var currentTime : TextView = binding.textViewNoteTime
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderEvent {
-//binding ui row item event
+        //binding ui row item event
         binding = EventItemRowBinding.inflate(LayoutInflater.from(context),parent,false)
         return ViewHolderEvent(binding.root)
     }
 
-    override fun getItemCount(): Int {
-        return eventArrayList.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolderEvent, position: Int) {
-        //get data
+        //get data 
         val model = eventArrayList[position]
         val id = model.id
         val eventsTitle = model.eventsTitle
         val eventsDescription = model.eventsDescription
         val uid = model.uid
         val timestamp = model.timestamp
+        val imageselected = model.image
+        val currentDate = model.currentDate
+        val currentTime = model.currentTime
 
 
 
         //set data's
         holder.title.text = eventsTitle
         holder.description.text = eventsDescription
+        holder.currentTime.text = currentTime
+        holder.currentDate.text = currentDate
+
+        Glide.with(this@EventAdapter.context)
+            .load(imageselected)
+            .into(holder.image)
+
 
         holder.moreBtn.setOnClickListener {
             moreOptions(model,holder)
         }
     }
 
-    private fun moreOptions(model: EventModel, holder: AdminEventAdapter.ViewHolderEvent) {
-//get id title
+    private fun moreOptions(model: ModelEvent, holder: EventAdapter.ViewHolderEvent) {
+        //get id title
         val eventId = model.id
         val eventTitle = model.eventsTitle
         val eventdescription = model.eventsDescription
@@ -75,11 +91,9 @@ class AdminEventAdapter: RecyclerView.Adapter<AdminEventAdapter.ViewHolderEvent>
                 //handle item clicked
                 if (position == 0 ){
                     //edit btn
-                    Toast.makeText(context,"Edit button Clicked", Toast.LENGTH_SHORT).show()
-
-//                    val intent = Intent(context, EditEventActivity::class.java)
-//                    intent.putExtra("id", eventId)//id as the reference to edit events
-//                    context.startActivity(intent)
+                    val intent = Intent(context, EditEventActivity::class.java)
+                    intent.putExtra("id", eventId)//id as the reference to edit events
+                    context.startActivity(intent)
 
                 }
                 else if (position == 1){
@@ -103,11 +117,13 @@ class AdminEventAdapter: RecyclerView.Adapter<AdminEventAdapter.ViewHolderEvent>
 
     }
 
-    private fun deleteEvent(model: EventModel, holder: AdminEventAdapter.ViewHolderEvent) {
+    private fun deleteEvent(model: ModelEvent, holder: ViewHolderEvent) {
+        //id as the reference to delete
+
         val id = model.id
 
-        val dbRef = FirebaseDatabase.getInstance().getReference("Events")
-        dbRef.child(id)
+        val dbRef = FirebaseDatabase.getInstance().getReference("events")
+        dbRef.child(id.toString())
             .removeValue()
             .addOnSuccessListener {
                 Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show()
@@ -116,5 +132,17 @@ class AdminEventAdapter: RecyclerView.Adapter<AdminEventAdapter.ViewHolderEvent>
                 Toast.makeText(context,"Unable to delete due to ${e.message}", Toast.LENGTH_SHORT).show()
 
             }
+
+    }
+
+    override fun getItemCount(): Int {
+        return eventArrayList.size
+    }
+
+    override fun getFilter(): Filter {
+        if (filter == null){
+            filter = FilterEvents(filterListEvent,this)
+        }
+        return filter as FilterEvents
     }
 }

@@ -12,13 +12,14 @@
         android:theme="@style/Theme.Maharlika_App"
         tools:targetApi="31">
         <activity
+            android:name=".EditEventActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.events.AddEventActivity"
             android:exported="false" />
         <activity
             android:name=".admin.AdminHolderActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".activity.SplashScreenActivity"
             android:exported="true">
@@ -36,9 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

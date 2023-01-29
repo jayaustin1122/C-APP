@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.maharlika.ui.admin.events.ModelEvent
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.auth.LoginActivity
 import com.example.maharlika_app.databinding.ActivityAddEventBinding
-import com.example.maharlika_app.model.EventModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -24,11 +24,7 @@ class AddEventActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var storage : FirebaseStorage
     private lateinit var database : FirebaseDatabase
-    private var imageUri : Uri? = null
-    private val selectedImage =registerForActivityResult(ActivityResultContracts.GetContent()){
-        imageUri = it
-        binding.imgAdd.setImageURI(imageUri)
-    }
+    private lateinit var selectedImage : Uri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEventBinding.inflate(layoutInflater)
@@ -43,12 +39,26 @@ class AddEventActivity : AppCompatActivity() {
         progressDialog.setCanceledOnTouchOutside(false)
 
         binding.imgAdd.setOnClickListener {
-            selectedImage.launch("image/*")
+            val intent = Intent()
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.type = "image/*"
+            startActivityForResult(intent,1)
         }
         binding.btnSubmit.setOnClickListener {
             validateData()
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (data != null){
+            if (data.data != null){
+                selectedImage = data.data!!
+                binding.imgAdd.setImageURI(selectedImage)
+            }
+        }
     }
     var title = ""
     var description = ""
@@ -68,33 +78,20 @@ class AddEventActivity : AppCompatActivity() {
     private fun uploadImage() {
         progressDialog.setMessage("Uploading Image...")
         progressDialog.show()
-        val uid = auth.uid
 
-        val storageRef = FirebaseStorage.getInstance().getReference("EventProfile")
-            .child(title)
-            .child("profile.jpg")
-
-
-        storageRef.putFile(imageUri!!)
-            .addOnCompleteListener{
-                storageRef.downloadUrl.addOnSuccessListener {
-                    updateProfile(it)
-                }.addOnFailureListener {
-                    Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
-                    progressDialog.dismiss()
+        val reference = storage.reference.child("EventProfile")
+            .child(Date().time.toString())
+        reference.putFile(selectedImage).addOnCompleteListener{
+            if (it.isSuccessful){
+                reference.downloadUrl.addOnSuccessListener {task->
+                    uploadInfo(task.toString())
                 }
-
-            }.addOnFailureListener {
-                Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
-                progressDialog.dismiss()
             }
-
-
+        }
 
     }
 
-
-    private fun updateProfile(imageUrl: Uri?) {
+    private fun uploadInfo(imgUrl: String) {
         progressDialog.setMessage("Saving Event...")
         progressDialog.show()
         title = binding.etTitleEvents.text.toString()
@@ -102,20 +99,19 @@ class AddEventActivity : AppCompatActivity() {
         val currentDate = getCurrentDate()
         val timestamp = System.currentTimeMillis()
         val currentTime = getCurrentTime()
+        val uid = auth.uid
+        val hashMap : HashMap<String,Any?> = HashMap()
+        hashMap["uid"] = uid
+        hashMap["eventsTitle"] = title
+        hashMap["eventsDescription"] = description
+        hashMap["image"] = imgUrl
+        hashMap["currentDate"] = currentDate
+        hashMap["currentTime"] = currentTime
+        hashMap["id"] = "$timestamp"
 
-        val data = EventModel(
-            id = auth.uid!!,
-            eventsTitle = title,
-            eventsDescription = description,
-            timestamp = timestamp,
-            uid = auth.uid!!,
-            image = imageUrl.toString(),
-            currentDate = currentDate,
-            currentTime = currentTime
-        )
         database.getReference("events")
-            .child(title)
-            .setValue(data)
+            .child(timestamp.toString())
+            .setValue(hashMap)
             .addOnCompleteListener{
                 if (it.isSuccessful){
                     progressDialog.dismiss()
@@ -128,6 +124,9 @@ class AddEventActivity : AppCompatActivity() {
                 }
             }
     }
+
+
+
     private fun getCurrentTime(): String {
         val tz = TimeZone.getTimeZone("GMT+08:00")
         val c = Calendar.getInstance(tz)
