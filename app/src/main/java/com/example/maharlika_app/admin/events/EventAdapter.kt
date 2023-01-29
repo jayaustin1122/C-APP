@@ -92,7 +92,10 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
                 if (position == 0 ){
                     //edit btn
                     val intent = Intent(context, EditEventActivity::class.java)
-                    intent.putExtra("id", eventId)//id as the reference to edit events
+                    intent.putExtra("id", eventId)
+                    intent.putExtra("eventTitle", eventTitle)
+                    intent.putExtra("eventdescription", eventdescription)
+                    //id as the reference to edit events
                     context.startActivity(intent)
 
                 }
