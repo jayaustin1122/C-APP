@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import com.example.maharlika_app.R
+import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -89,9 +90,9 @@ class LoginActivity : AppCompatActivity() {
 //                        finish()
 
                     } else if (userType == "admin") {
-//                        Toast.makeText(applicationContext, "Welcome Admin", Toast.LENGTH_SHORT).show()
-//                        startActivity(Intent(applicationContext,AdminHolderActivity::class.java))
-//                        finish()
+                        Toast.makeText(applicationContext, "Welcome Admin", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(applicationContext, AdminHolderActivity::class.java))
+                        finish()
                     }
                 }
 

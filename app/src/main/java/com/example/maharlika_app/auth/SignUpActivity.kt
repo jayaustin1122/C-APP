@@ -18,8 +18,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
-    private lateinit var binding : ActivitySignUpBinding
 
+    private lateinit var binding : ActivitySignUpBinding
     private lateinit var progressDialog : ProgressDialog
     private lateinit var auth : FirebaseAuth
     private lateinit var storage : FirebaseStorage
@@ -47,6 +47,10 @@ class SignUpActivity : AppCompatActivity() {
         }
         binding.btnSignUp.setOnClickListener {
             validateData()
+        }
+        binding.tvSingIn2.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
         }
     }
     private var email = ""

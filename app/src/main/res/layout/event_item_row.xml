@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/midgrey"
+    android:layout_marginTop="10dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="10dp">
+
+    <TextView
+        android:id="@+id/readMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Blue"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:text="@string/read_more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNoteTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewNoteDate"
+        android:text="1:00"
+        android:padding="5dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+
+        app:layout_constraintStart_toEndOf="@+id/textViewNoteDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+
+    <TextView
+        android:id="@+id/textViewNoteDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_20_20_20"
+        android:padding="5dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/imgPicture"
+        app:layout_constraintTop_toTopOf="@+id/textViewNoteTime" />
+
+    <ImageView
+        android:id="@+id/imgPicture"
+        android:layout_width="113dp"
+        android:layout_height="108dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused" />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:paddingStart="5dp"
+        android:maxLines="1"
+        android:text="Description"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPicture"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <ImageButton
+        android:id="@+id/btnMore"
+        android:layout_width="37dp"
+        android:layout_height="40dp"
+        android:background="@color/fulltrans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle"
+        app:srcCompat="@drawable/ic_baseline_more_vert_24"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:text="Title"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btnMore"
+        app:layout_constraintStart_toEndOf="@+id/imgPicture"
+        app:layout_constraintTop_toTopOf="@+id/imgPicture" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

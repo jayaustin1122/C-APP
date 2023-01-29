@@ -9,6 +9,7 @@ import android.os.Looper
 import android.widget.Toast
 import com.example.maharlika_app.MainActivity
 import com.example.maharlika_app.R
+import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.auth.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -16,7 +17,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
     lateinit var auth : FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class SplashScreenActivity : AppCompatActivity() {
         else{
 
             val dbref = FirebaseDatabase.getInstance().getReference("Users")
-            dbref.child(firebaseUser.uid)
+            dbref.child(FirebaseAuth.getInstance().currentUser!!.uid)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -54,6 +54,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
                         } else if (userType == "admin") {
                             Toast.makeText(this@SplashScreenActivity, "Welcome Admin", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@SplashScreenActivity,AdminHolderActivity::class.java))
+                            finish()
                         }
                     }
 
