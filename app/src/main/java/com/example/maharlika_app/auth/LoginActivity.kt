@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.maharlika_app.R
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityLoginBinding
+import com.example.maharlika_app.user.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -85,9 +86,9 @@ class LoginActivity : AppCompatActivity() {
                     val userType = snapshot.child("userType").value
 
                     if (userType == "member") {
-//                        Toast.makeText(applicationContext, "Login Successfully", Toast.LENGTH_SHORT).show()
-//                        startActivity(Intent(applicationContext,MainActivity::class.java))
-//                        finish()
+                        Toast.makeText(applicationContext, "Login Successfully", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                        finish()
 
                     } else if (userType == "admin") {
                         Toast.makeText(applicationContext, "Welcome Admin", Toast.LENGTH_SHORT).show()

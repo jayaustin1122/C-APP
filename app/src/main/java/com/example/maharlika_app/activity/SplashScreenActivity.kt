@@ -1,16 +1,15 @@
 package com.example.maharlika_app.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import com.example.maharlika_app.MainActivity
 import com.example.maharlika_app.R
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.auth.LoginActivity
+import com.example.maharlika_app.user.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -50,7 +49,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
                         if (userType == "member") {
                             Toast.makeText(this@SplashScreenActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
-
+                            startActivity(Intent(this@SplashScreenActivity,MainActivity::class.java))
+                            finish()
 
                         } else if (userType == "admin") {
                             Toast.makeText(this@SplashScreenActivity, "Welcome Admin", Toast.LENGTH_SHORT).show()
