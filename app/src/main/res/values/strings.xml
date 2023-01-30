@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Maharlika_App</string>
+    <string name="app_name">Maharlika App</string>
     <string name="maharlika">Maharlika</string>
     <string name="sign_in">Sign-In</string>
     <string name="password">Password</string>
@@ -44,5 +44,6 @@
     <string name="cover_photo">Cover Photo</string>
     <string name="_20_20_20">20/20/20</string>
     <string name="edit_news">Edit News</string>
+    <string name="fullname">Fullname</string>
 
 </resources>

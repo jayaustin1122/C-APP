@@ -45,7 +45,7 @@
         app:layout_constraintStart_toEndOf="@+id/imgPicture"
         app:layout_constraintTop_toTopOf="@+id/textViewNoteTime" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgPicture"
         android:layout_width="113dp"
         android:layout_height="108dp"
@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused" />
+        android:src="@drawable/profile" />
 
     <TextView
         android:id="@+id/tvDesc"

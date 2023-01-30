@@ -24,11 +24,8 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var storage : FirebaseStorage
     private lateinit var database : FirebaseDatabase
-    private var imageUri : Uri? = null
-    private val selectedImage =registerForActivityResult(ActivityResultContracts.GetContent()){
-        imageUri = it
-        binding.userImg.setImageURI(imageUri)
-    }
+    private lateinit var selectedImage : Uri
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -43,7 +40,10 @@ class SignUpActivity : AppCompatActivity() {
         progressDialog.setCanceledOnTouchOutside(false)
 
         binding.userImg.setOnClickListener {
-            selectedImage.launch("image/*")
+            val intent = Intent()
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.type = "image/*"
+            startActivityForResult(intent,1)
         }
         binding.btnSignUp.setOnClickListener {
             validateData()
@@ -51,6 +51,20 @@ class SignUpActivity : AppCompatActivity() {
         binding.tvSingIn2.setOnClickListener {
             startActivity(Intent(this,LoginActivity::class.java))
             finish()
+        }
+        binding.back.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (data != null){
+            if (data.data != null){
+                selectedImage = data.data!!
+                binding.userImg.setImageURI(selectedImage)
+            }
         }
     }
     private var email = ""
@@ -120,25 +134,21 @@ class SignUpActivity : AppCompatActivity() {
             .child("profile.jpg")
 
 
-        storageRef.putFile(imageUri!!)
-            .addOnCompleteListener{
-                storageRef.downloadUrl.addOnSuccessListener {
-                    updateProfile(it)
-                }.addOnFailureListener {
-                    Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
-                    progressDialog.dismiss()
+        val reference = storage.reference.child("profile")
+            .child(Date().time.toString())
+        reference.putFile(selectedImage).addOnCompleteListener{
+            if (it.isSuccessful){
+                reference.downloadUrl.addOnSuccessListener {task->
+                    uploadInfo(task.toString())
                 }
-
-            }.addOnFailureListener {
-                Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
-                progressDialog.dismiss()
             }
+        }
 
 
 
     }
 
-    private fun updateProfile(imageUrl: Uri?) {
+    private fun uploadInfo(imageUrl: String) {
 
         progressDialog.setMessage("Saving Account...")
         progressDialog.show()
@@ -149,21 +159,26 @@ class SignUpActivity : AppCompatActivity() {
         address = binding.etAddreddSignUp.text.toString().trim()
         val currentDate = getCurrentDate()
         val currentTime = getCurrentTime()
-        val data = UserModel(
-            email = email,
-            password = pass,
-            fullName = fullname,
-            address = address,
-            profileImage = imageUrl.toString(),
-            userType = "member",
-            currentDate = currentDate,
-            currentTime = currentTime,
+        val timestamp = System.currentTimeMillis()
+        val uid = auth.uid
+        val hashMap : HashMap<String,Any?> = HashMap()
 
-        )
+        hashMap["uid"] = uid
+        hashMap["email"] = email
+        hashMap["password"] = pass
+        hashMap["fullName"] = fullname
+        hashMap["address"] = address
+        hashMap["image"] = imageUrl
+        hashMap["currentDate"] = currentDate
+        hashMap["currentTime"] = currentTime
+        hashMap["id"] = "$timestamp"
+        hashMap["userType"] = "member"
+
+
 
         database.getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
-            .setValue(data)
+            .setValue(hashMap)
             .addOnCompleteListener{
                 if (it.isSuccessful){
                     progressDialog.dismiss()
