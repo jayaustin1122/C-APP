@@ -129,13 +129,9 @@ class SignUpActivity : AppCompatActivity() {
         progressDialog.show()
         val uid = auth.uid
 
-        val storageRef = FirebaseStorage.getInstance().getReference("profile")
-            .child(fullname)
-            .child("profile.jpg")
-
 
         val reference = storage.reference.child("profile")
-            .child(Date().time.toString())
+            .child(uid!!)
         reference.putFile(selectedImage).addOnCompleteListener{
             if (it.isSuccessful){
                 reference.downloadUrl.addOnSuccessListener {task->

@@ -88,6 +88,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
         val eventId = model.id
         val eventTitle = model.eventsTitle
         val eventdescription = model.eventsDescription
+        val image = model.image
         // show options
         val options = arrayOf("Edit","Delete")
         // show alert dialog
@@ -101,6 +102,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
                     intent.putExtra("id", eventId)
                     intent.putExtra("eventTitle", eventTitle)
                     intent.putExtra("eventdescription", eventdescription)
+                    intent.putExtra("image", image)
                     //id as the reference to edit events
                     context.startActivity(intent)
 

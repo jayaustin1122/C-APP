@@ -85,6 +85,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ViewHolderNews> {
         val newsId = model.id
         val newsTitle = model.newsTitle
         val newsDescription = model.newsDescription
+        val image = model.image
         // show options
         val options = arrayOf("Edit","Delete")
         // show alert dialog
@@ -98,6 +99,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ViewHolderNews> {
                     intent.putExtra("id", newsId)
                     intent.putExtra("newsTitle", newsTitle)
                     intent.putExtra("newsDescription", newsDescription)
+                    intent.putExtra("image", image)
                     //id as the reference to edit events
                     context.startActivity(intent)
 
