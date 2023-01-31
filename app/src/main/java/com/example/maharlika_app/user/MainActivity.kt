@@ -3,7 +3,10 @@ package com.example.maharlika_app.user
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.example.maharlika_app.admin.events.EventAdminFragment
 import com.example.maharlika_app.admin.manageAcc.ManageAccountsFragment
 import com.example.maharlika_app.admin.news.NewsAdminFragment
@@ -27,13 +30,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         checkUser()
 
-        binding.btnLogout.setOnClickListener {
-            auth.signOut()
 
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
 
         val eventUserFragment = EventUserFragment()
         val newsUserFragment = NewsUserFragment()

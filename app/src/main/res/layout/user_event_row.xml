@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:background="@color/fulltrans"
     android:layout_height="wrap_content">
 
     <TextView
@@ -21,7 +23,7 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/eventCover"
         android:layout_width="0dp"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_height="150dp"
         android:scaleType="fitXY"
         android:src="@drawable/mainbg"

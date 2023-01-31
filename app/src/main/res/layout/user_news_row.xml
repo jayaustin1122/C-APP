@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/newsCover"
         android:layout_width="0dp"
-        android:layout_margin="10dp"
         android:layout_height="150dp"
+        android:layout_margin="10dp"
         android:foreground="@color/foregroundTint"
         android:scaleType="fitXY"
         android:src="@drawable/mainbg"
@@ -23,18 +24,27 @@
     <TextView
         android:id="@+id/newsTitle"
         android:layout_width="296dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
         android:maxLines="2"
+        android:padding="5dp"
         android:text="Sample Event Titleasdasdasdadasd"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/newsCover"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/newsCover" />
+
+    <TextView
+        android:id="@+id/newsDescription"
+        android:layout_width="0dp"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:maxLines="2"
+        android:text="Sample Description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/newsCover"
+        app:layout_constraintTop_toBottomOf="@+id/newsCover" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
