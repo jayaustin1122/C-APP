@@ -27,6 +27,14 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         checkUser()
 
+        binding.btnLogout.setOnClickListener {
+            auth.signOut()
+
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         val eventUserFragment = EventUserFragment()
         val newsUserFragment = NewsUserFragment()
         val notificationFragment = NotificationFragment()

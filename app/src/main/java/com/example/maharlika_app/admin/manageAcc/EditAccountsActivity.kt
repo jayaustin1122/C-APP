@@ -36,10 +36,8 @@ class EditAccountsActivity : AppCompatActivity() {
             updateData()
 
         }
-        binding.imgBtnBack.setOnClickListener {
-            val intent = Intent(this, AdminHolderActivity::class.java)
-            startActivity(intent)
-            finish()
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
         }
 
 

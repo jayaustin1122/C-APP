@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.admin.events.EditEventActivity
 import com.example.maharlika_app.databinding.EventItemRowBinding
+import com.example.maharlika_app.user.events.EventDetailActivity
 import com.google.firebase.database.FirebaseDatabase
 
 
@@ -74,6 +75,11 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
 
         holder.moreBtn.setOnClickListener {
             moreOptions(model,holder)
+        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, EventDetailActivity::class.java)
+            intent.putExtra("id",id)//reference to load the other details
+            context.startActivity(intent)
         }
     }
 

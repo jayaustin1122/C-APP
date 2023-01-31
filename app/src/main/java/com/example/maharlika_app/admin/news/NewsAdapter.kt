@@ -16,6 +16,7 @@ import com.example.maharlika.ui.admin.events.EventAdapter
 import com.example.maharlika.ui.admin.events.ModelEvent
 import com.example.maharlika_app.admin.events.EditEventActivity
 import com.example.maharlika_app.databinding.EventItemRowBinding
+import com.example.maharlika_app.user.news.NewsDetailsActivity
 import com.google.firebase.database.FirebaseDatabase
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ViewHolderNews> {
@@ -72,6 +73,11 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ViewHolderNews> {
 
         holder.moreBtn.setOnClickListener {
             moreOptions(model,holder)
+        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, NewsDetailsActivity::class.java)
+            intent.putExtra("id",id)//reference to load the other details
+            context.startActivity(intent)
         }
     }
     private fun moreOptions(model: ModelNews, holder: NewsAdapter.ViewHolderNews) {

@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".admin.AdminHolderActivity">
 
-    <Button
-        android:id="@+id/btnLogoutAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <FrameLayout
         android:id="@+id/fragmentMainAdmin"
         android:layout_width="match_parent"

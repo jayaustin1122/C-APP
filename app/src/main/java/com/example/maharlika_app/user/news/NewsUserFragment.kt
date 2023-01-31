@@ -1,60 +1,82 @@
 package com.example.maharlika_app.user.news
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.maharlika.ui.admin.events.ModelEvent
 import com.example.maharlika_app.R
+import com.example.maharlika_app.admin.news.ModelNews
+import com.example.maharlika_app.databinding.FragmentNewsUserBinding
+import com.example.maharlika_app.user.events.UserEventAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [NewsUserFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NewsUserFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding : FragmentNewsUserBinding
 
+    private lateinit var auth: FirebaseAuth
+    private lateinit var progressDialog: ProgressDialog
+    // array list to hold events
+    private lateinit var newsArrayList : ArrayList<ModelNews>
+
+    //adapter
+    private lateinit var adapter : UserNewsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentNewsUserBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news_user, container, false)
+        return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NewsUserFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NewsUserFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        progressDialog = ProgressDialog(this@NewsUserFragment.requireContext())
+        progressDialog.setTitle("PLease wait")
+        progressDialog.setCanceledOnTouchOutside(false)
+        getEvents()
+
+    }
+    private fun getEvents() {
+        //initialize
+        newsArrayList = ArrayList()
+
+        val dbRef = FirebaseDatabase.getInstance().getReference("news")
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // clear list
+                newsArrayList.clear()
+                for (data in snapshot.children){
+                    //data as model
+                    val model = data.getValue(ModelNews::class.java)
+
+                    // add to array
+                    newsArrayList.add(model!!)
                 }
+                //set up adapter
+                adapter = UserNewsAdapter(this@NewsUserFragment.requireContext(),newsArrayList)
+                //set to recycler
+                binding.adminEventRv.setHasFixedSize(true)
+                binding.adminEventRv.layoutManager = LinearLayoutManager(context)
+                binding.adminEventRv.adapter = adapter
+
             }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 }

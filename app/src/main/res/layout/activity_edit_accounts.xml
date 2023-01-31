@@ -6,16 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".admin.manageAcc.EditAccountsActivity">
 
-
-    <ImageButton
-        android:id="@+id/imgBtnBack"
-        android:layout_width="45dp"
-        android:layout_height="42dp"
-        android:layout_margin="10dp"
-        android:background="@color/fulltrans"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/actionshape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="37dp"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@color/fulltrans"
+            android:src="@drawable/backwhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Edit Account"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnUpdate"
@@ -27,18 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDesciptionEventsEdit" />
 
-    <TextView
-        android:id="@+id/tvEditEvents"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit_events"
-        android:textColor="@color/black"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etTitleEventsEdit"
@@ -75,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEditEvents"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
         app:srcCompat="@drawable/read" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

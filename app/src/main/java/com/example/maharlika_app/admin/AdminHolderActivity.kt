@@ -25,13 +25,6 @@ class AdminHolderActivity : AppCompatActivity() {
         val manageAccAdminFragment = ManageAccountsFragment()
         val newsAdminFragment = NewsAdminFragment()
 
-        binding.btnLogoutAdmin.setOnClickListener {
-            auth.signOut()
-
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
         // to call the initial fragment display in screen
         supportFragmentManager.beginTransaction().apply {
             replace(binding.fragmentMainAdmin.id,eventAdminFragment)

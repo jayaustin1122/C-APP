@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:background="@color/midgrey"
     android:layout_marginTop="10dp"
     android:elevation="10dp"
@@ -30,7 +30,6 @@
         android:padding="5dp"
         android:textColor="@color/black"
         android:textSize="15sp"
-
         app:layout_constraintStart_toEndOf="@+id/textViewNoteDate"
         app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
@@ -86,7 +85,7 @@
         android:paddingStart="5dp"
         android:text="Title"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/btnMore"
         app:layout_constraintStart_toEndOf="@+id/imgPicture"

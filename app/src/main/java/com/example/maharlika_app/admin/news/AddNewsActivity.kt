@@ -45,6 +45,9 @@ class AddNewsActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
             validateData()
         }
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

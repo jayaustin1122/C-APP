@@ -38,10 +38,8 @@ class EditNewsActivity : AppCompatActivity() {
             updateData()
 
         }
-        binding.imgBtnBack.setOnClickListener {
-            val intent = Intent(this, AdminHolderActivity::class.java)
-            startActivity(intent)
-            finish()
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
         }
 
     }
@@ -62,8 +60,6 @@ class EditNewsActivity : AppCompatActivity() {
 
 
     }
-    private var newTitle = ""
-    private var newDescription = ""
     private fun updateNewData() {
         progressDialog.setMessage("Updating Event")
         progressDialog.show()
@@ -72,7 +68,7 @@ class EditNewsActivity : AppCompatActivity() {
         val hashMap = HashMap<String, Any?>()
 
         hashMap["newsTitle"] = "$newsTitle"
-        hashMap["newsDescription"] = "$newDescription"
+        hashMap["newsDescription"] = "$newsDesc"
 
         val dbRef = FirebaseDatabase.getInstance().getReference("news")
         dbRef.child(newstId)

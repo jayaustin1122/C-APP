@@ -31,8 +31,8 @@
 
         <CheckBox
             android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="34dp"
+            android:layout_width="216dp"
+            android:layout_height="41dp"
             android:padding="10dp"
             android:text="@string/agree_terms_and_conditions"
             android:textSize="13sp"
@@ -119,6 +119,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="15dp"
             android:hint="@string/password"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +128,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassSignUp"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -140,6 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
+            app:endIconMode="password_toggle"
             android:layout_marginEnd="15dp"
             android:hint="@string/confirm_password"
             app:layout_constraintEnd_toEndOf="parent"
@@ -150,6 +153,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPass2SignUp"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

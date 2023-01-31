@@ -47,6 +47,9 @@ class AddEventActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
             validateData()
         }
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
