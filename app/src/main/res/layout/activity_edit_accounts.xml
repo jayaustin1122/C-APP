@@ -29,8 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Edit Account"
+            android:text="@string/edit_account"
             android:textColor="@color/white"
+            android:fontFamily="@font/bold"
             android:textSize="25sp" />
 
     </RelativeLayout>
@@ -40,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/update"
+        android:fontFamily="@font/bold"
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -70,6 +72,7 @@
             android:hint="New Password"
             android:padding="10dp"
             android:scrollbars="vertical"
+            android:fontFamily="@font/regular"
             android:text="@string/event_description" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,6 +96,7 @@
             android:hint="Fullname"
             android:lines="1"
             android:padding="10dp"
+            android:fontFamily="@font/regular"
             android:scrollbars="vertical"
             android:text="@string/event_description" />
     </com.google.android.material.textfield.TextInputLayout>

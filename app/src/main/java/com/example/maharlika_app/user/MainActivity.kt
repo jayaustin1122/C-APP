@@ -3,17 +3,10 @@ package com.example.maharlika_app.user
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
-import com.example.maharlika_app.admin.events.EventAdminFragment
-import com.example.maharlika_app.admin.manageAcc.ManageAccountsFragment
-import com.example.maharlika_app.admin.news.NewsAdminFragment
 import com.example.maharlika_app.auth.LoginActivity
 import com.example.maharlika_app.databinding.ActivityMainBinding
 import com.example.maharlika_app.user.events.EventUserFragment
-import com.example.maharlika_app.user.news.NewsUserFragment
 import com.example.maharlika_app.user.notfications.NotificationFragment
 import com.example.maharlika_app.user.profile.ProfileFragment
 import com.google.android.material.tabs.TabLayout
@@ -33,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
 
         val eventUserFragment = EventUserFragment()
-        val newsUserFragment = NewsUserFragment()
         val notificationFragment = NotificationFragment()
         val profileFragment = ProfileFragment()
 
@@ -54,16 +46,8 @@ class MainActivity : AppCompatActivity() {
                         addToBackStack(null)
                         commit()
                     }
-                } else if (tab?.position == 1) {
-                    //accessing button
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(binding.fragmentMainAdmin.id, newsUserFragment)
-                        // creating a backstack
-                        addToBackStack(null)
-                        commit()
-                    }
                 }
-                else if (tab?.position == 2) {
+                else if (tab?.position == 1) {
                     //accessing button 2
                     supportFragmentManager.beginTransaction().apply {
                         replace(binding.fragmentMainAdmin.id, notificationFragment)
@@ -72,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                         commit()
                     }
                 }
-                else if (tab?.position == 3) {
+                else if (tab?.position == 2) {
                     //accessing button 2
                     supportFragmentManager.beginTransaction().apply {
                         replace(binding.fragmentMainAdmin.id, profileFragment)

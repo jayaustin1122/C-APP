@@ -48,5 +48,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_event_title">Sample Event Title</string>
+    <string name="edit_event">Edit Event</string>
+    <string name="edit_account">Edit Account</string>
 
 </resources>

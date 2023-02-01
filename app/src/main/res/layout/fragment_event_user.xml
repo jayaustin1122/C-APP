@@ -8,9 +8,23 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/adminEventRv"
-        android:layout_width="0dp"
+        android:id="@+id/recyclerview2"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:listitem="@layout/event_item_row" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/adminEventRv"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,14 +36,27 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Events"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="@color/black"
+        android:layout_width="92dp"
+        android:layout_height="34dp"
         android:layout_marginStart="10dp"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:fontFamily="@font/bold"
+        android:text="Events"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="78dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/bold"
+        android:text="News"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminEventRv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

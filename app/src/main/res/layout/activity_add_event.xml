@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/bold"
             android:text="Add Event"
             android:textColor="@color/white"
             android:textSize="25sp" />
@@ -54,6 +55,7 @@
         android:text="@string/cover_photo"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:fontFamily="@font/bold"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -76,6 +78,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitleEvents"
+            android:gravity="top|center"
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:fontFamily="@font/bold"
+            android:padding="10dp"
+            android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -98,20 +106,26 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDesciptionEvents"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="top|center"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:fontFamily="@font/regular"
+            android:padding="10dp"
+            android:scrollbars="vertical" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
         android:id="@+id/btnSubmit"
-        android:layout_width="330dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:fontFamily="@font/bold"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

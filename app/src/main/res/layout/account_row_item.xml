@@ -31,8 +31,9 @@
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="298dp"
+        android:layout_height="44dp"
+        android:fontFamily="@font/bold"
         android:paddingStart="5dp"
         android:text="@string/fullname"
         android:textColor="@color/black"

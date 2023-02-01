@@ -27,8 +27,9 @@ class UserNewsAdapter : RecyclerView.Adapter<UserNewsAdapter.ViewHolderUserNews>
         this.newsArrayList = eventArrayList
     }
     inner class ViewHolderUserNews(itemView: View): RecyclerView.ViewHolder(itemView){
-        var title : TextView = binding.newsTitle
-        var coverImage : ImageView = binding.newsCover
+        var title : TextView = binding.tvTitle
+        var desc : TextView = binding.tvDesc
+        var coverImage : ImageView = binding.imgPicture
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderUserNews {
@@ -46,9 +47,11 @@ class UserNewsAdapter : RecyclerView.Adapter<UserNewsAdapter.ViewHolderUserNews>
         val id = model.id
         val title = model.newsTitle
         val image = model.image
+        val desc = model.newsDescription
 
         //set data's
         holder.title.text = title
+        holder.desc.text = desc
         Glide.with(this@UserNewsAdapter.context)
             .load(image)
             .into(holder.coverImage)

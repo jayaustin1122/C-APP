@@ -35,6 +35,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmailSignIn"
                 android:layout_width="match_parent"
+                android:fontFamily="@font/regular"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
 
@@ -59,6 +60,7 @@
                 android:id="@+id/etPasswordSignIn"
                 android:layout_width="match_parent"
                 android:inputType="textPassword"
+                android:fontFamily="@font/regular"
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -70,6 +72,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/create_account"
             android:textColor="@color/Blue"
+            android:fontFamily="@font/medium"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout"
@@ -82,6 +85,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="24dp"
             android:text="@string/forgot_password"
+            android:fontFamily="@font/medium"
             android:textColor="@color/Blue"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -96,6 +100,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:text="@string/sign_in"
+            android:fontFamily="@font/bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="@string/sign_in"
+        android:fontFamily="@font/bold"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"

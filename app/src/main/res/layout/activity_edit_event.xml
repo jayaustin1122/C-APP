@@ -29,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Edit Event"
+            android:fontFamily="@font/bold"
+            android:text="@string/edit_event"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -39,12 +40,12 @@
         android:id="@+id/btnUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/bold"
         android:text="@string/update"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <com.google.android.material.textfield.TextInputLayout
 
@@ -63,6 +64,7 @@
             android:id="@+id/etDesciptionEventsEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/regular"
             android:gravity="top|left"
             android:inputType="textMultiLine"
             android:lines="10"
@@ -88,6 +90,7 @@
             android:id="@+id/etTitleEventsEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/regular"
             android:gravity="top|center"
             android:inputType="textMultiLine"
             android:lines="2"

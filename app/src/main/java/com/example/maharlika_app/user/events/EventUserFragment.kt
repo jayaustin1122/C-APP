@@ -12,7 +12,10 @@ import com.example.maharlika.ui.admin.events.EventAdapter
 import com.example.maharlika.ui.admin.events.ModelEvent
 import com.example.maharlika_app.R
 import com.example.maharlika_app.admin.events.AddEventActivity
+import com.example.maharlika_app.admin.news.ModelNews
+import com.example.maharlika_app.admin.news.NewsAdapter
 import com.example.maharlika_app.databinding.FragmentEventUserBinding
+import com.example.maharlika_app.user.news.UserNewsAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -31,6 +34,10 @@ class EventUserFragment : Fragment() {
 
     //adapter
     private lateinit var adapter : UserEventAdapter
+    private lateinit var newsArrayList : ArrayList<ModelNews>
+
+    //adapter
+    private lateinit var adapter2 : UserNewsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +54,7 @@ class EventUserFragment : Fragment() {
         progressDialog.setTitle("PLease wait")
         progressDialog.setCanceledOnTouchOutside(false)
         getEvents()
+        getEvents2()
 
     }
     private fun getEvents() {
@@ -69,8 +77,40 @@ class EventUserFragment : Fragment() {
                 adapter = UserEventAdapter(this@EventUserFragment.requireContext(),eventArrayList)
                 //set to recycler
                 binding.adminEventRv.setHasFixedSize(true)
-                binding.adminEventRv.layoutManager = LinearLayoutManager(context)
+                val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                binding.adminEventRv.layoutManager = layoutManager
                 binding.adminEventRv.adapter = adapter
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+    private fun getEvents2() {
+        //initialize
+        newsArrayList = ArrayList()
+
+        val dbRef = FirebaseDatabase.getInstance().getReference("news")
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // clear list
+                newsArrayList.clear()
+                for (data in snapshot.children){
+                    //data as model
+                    val model = data.getValue(ModelNews::class.java)
+
+                    // add to array
+                    newsArrayList.add(model!!)
+                }
+                //set up adapter
+                adapter2 = UserNewsAdapter(this@EventUserFragment.requireContext(),newsArrayList)
+                //set to recycler
+                binding.recyclerview2.setHasFixedSize(true)
+                binding.recyclerview2.layoutManager = LinearLayoutManager(context)
+                binding.recyclerview2.adapter = adapter2
 
             }
 
