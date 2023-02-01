@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener
 class ProfileFragment : Fragment() {
 
     private lateinit var binding : FragmentProfileBinding
-    private lateinit var navControl : NavController
     private lateinit var auth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +34,6 @@ class ProfileFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navControl =  Navigation.findNavController(view)
         auth = FirebaseAuth.getInstance()
 
         loadUsersInfo()
@@ -44,7 +42,7 @@ class ProfileFragment : Fragment() {
             startActivity( Intent(this@ProfileFragment.requireContext(), LoginActivity::class.java))
         }
         binding.tvBtnEdit.setOnClickListener {
-            navControl.navigate(R.id.action_profileFragment_to_editProfileFragment)
+            startActivity( Intent(this@ProfileFragment.requireContext(), EditProfileActivity::class.java))
         }
     }
 

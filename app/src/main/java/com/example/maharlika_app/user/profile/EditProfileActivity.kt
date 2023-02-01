@@ -3,18 +3,11 @@ package com.example.maharlika_app.user.profile
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
-import com.example.maharlika_app.R
-import com.example.maharlika_app.auth.LoginActivity
-import com.example.maharlika_app.databinding.FragmentEditProfileBinding
+import com.example.maharlika_app.databinding.ActivityEditProfileBinding
 import com.example.maharlika_app.user.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -24,60 +17,55 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.util.HashMap
 
-
-class EditProfileFragment : Fragment() {
-    private lateinit var binding : FragmentEditProfileBinding
+class EditProfileActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityEditProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var selectedImage : Uri
     private lateinit var storage : FirebaseStorage
     private lateinit var database : FirebaseDatabase
     private lateinit var progressDialog : ProgressDialog
-    private lateinit var navControl : NavController
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentEditProfileBinding.inflate(layoutInflater)
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
         database = FirebaseDatabase.getInstance()
-        navControl =  Navigation.findNavController(view)
 
-        progressDialog = ProgressDialog(this@EditProfileFragment.requireContext())
+        progressDialog = ProgressDialog(this)
         progressDialog.setTitle("PLease wait")
         progressDialog.setCanceledOnTouchOutside(false)
 
-        auth = FirebaseAuth.getInstance()
         loadUsersInfo()
         binding.btnBack.setOnClickListener {
-            startActivity(Intent(this@EditProfileFragment.requireContext(),MainActivity::class.java))
+            startActivity(
+                Intent(this,MainActivity::class.java)
+            )
         }
         binding.imageView.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
             startActivityForResult(intent,1)
+
+
         }
         binding.btnUpdate.setOnClickListener {
             validateData()
         }
-
     }
     private var fullName = ""
     private var password = ""
     private var address = ""
+    private var imageLink = ""
     private fun validateData() {
-        fullName = binding.etFullName.toString().trim()
-        password = binding.etFullName.toString().trim()
-        address = binding.etFullName.toString().trim()
+        fullName = binding.etFullName.text.toString().trim()
+        password = binding.etNewPass.text.toString().trim()
+        address = binding.etNewPass.text.toString().trim()
+        imageLink = binding.imageLink.text.toString().trim()
 
         if (fullName.isEmpty()|| password.isEmpty() || address.isEmpty()){
-            Toast.makeText(this@EditProfileFragment.requireContext(),"Empty Fields are note allowed..",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Empty Fields are note allowed..", Toast.LENGTH_SHORT).show()
         }
         else{
             uploadImage()
@@ -118,11 +106,12 @@ class EditProfileFragment : Fragment() {
             .addOnCompleteListener{
                 if (it.isSuccessful){
                     progressDialog.dismiss()
-                    startActivity(Intent(this@EditProfileFragment.requireContext(), MainActivity::class.java))
-                    navControl.navigate(R.id.action_editProfileFragment_to_profileFragment)
+                    Toast.makeText(this,"Updated", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+
                 }
                 else{
-                    Toast.makeText(this@EditProfileFragment.requireContext(),it.exception!!.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,it.exception!!.message, Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -161,7 +150,7 @@ class EditProfileFragment : Fragment() {
                     binding.etNewPass.setText(password)
                     binding.etNewAddress.setText(address)
 
-                    Glide.with(this@EditProfileFragment.requireContext())
+                    Glide.with(this@EditProfileActivity)
                         .load(image)
                         .into(binding.imageView)
 
@@ -174,6 +163,4 @@ class EditProfileFragment : Fragment() {
 
             })
     }
-
-
 }

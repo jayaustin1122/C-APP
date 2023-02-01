@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Maharlika_App"
         tools:targetApi="31">
         <activity
+            android:name=".user.profile.EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.news.NewsDetailsActivity"
             android:exported="false" />
         <activity
@@ -50,7 +53,7 @@
         <activity
             android:name=".auth.LoginActivity"
             android:exported="false"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".user.MainActivity"
             android:exported="true" />
