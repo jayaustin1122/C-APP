@@ -7,20 +7,19 @@
     tools:context=".user.events.EventDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="376dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:background="@drawable/bgdesign"
-        android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/newsCover"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
@@ -36,12 +35,13 @@
             android:id="@+id/newsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:text="@string/sample_event_title"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:fontFamily="@font/bold"
-            android:gravity="center"
-            android:padding="10dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,11 +52,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="TextView"
-            android:textSize="15sp"
-            android:padding="10dp"
             android:fontFamily="@font/medium"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:text="TextView"
             android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +68,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@drawable/actionshape"
@@ -85,8 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="News Details"
             android:fontFamily="@font/bold"
+            android:text="News Details"
             android:textColor="@color/white"
             android:textSize="25sp" />
 

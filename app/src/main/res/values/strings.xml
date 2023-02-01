@@ -50,5 +50,6 @@
     <string name="sample_event_title">Sample Event Title</string>
     <string name="edit_event">Edit Event</string>
     <string name="edit_account">Edit Account</string>
+    <string name="forgot_password1">Forgot Password</string>
 
 </resources>

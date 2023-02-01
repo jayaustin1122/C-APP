@@ -46,7 +46,7 @@ class EventDetailActivity : AppCompatActivity() {
                     //set data
 
                     binding.eventTitle.text = eventsTitle
-                    binding.eventDes.text = eventsDescription
+                    binding.newsDes.text = eventsDescription
 
                     Glide.with(this@EventDetailActivity)
                         .load(image)

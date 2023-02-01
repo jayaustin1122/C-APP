@@ -38,6 +38,10 @@ class LoginActivity : AppCompatActivity() {
         binding.btnSignIn.setOnClickListener {
             validateData()
         }
+        binding.tvForgot.setOnClickListener {
+            startActivity(Intent(this,ForgotPasswordActivity::class.java))
+            finish()
+        }
     }
     var email = ""
     var pass = ""
