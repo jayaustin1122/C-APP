@@ -8,7 +8,7 @@
     tools:context=".auth.SignUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="381dp"
+        android:layout_width="320dp"
         android:layout_height="573dp"
         android:background="@drawable/bgdesign"
         android:layout_marginTop="120dp"
