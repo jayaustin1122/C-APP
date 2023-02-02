@@ -3,9 +3,12 @@ package com.example.maharlika_app.user.profile
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.example.maharlika_app.databinding.ActivityEditProfileBinding
 import com.example.maharlika_app.user.MainActivity
@@ -24,6 +27,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var storage : FirebaseStorage
     private lateinit var database : FirebaseDatabase
     private lateinit var progressDialog : ProgressDialog
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
@@ -43,14 +47,20 @@ class EditProfileActivity : AppCompatActivity() {
             )
         }
         binding.imageView.setOnClickListener {
+            binding.btnUpdate.setTransitionVisibility(View.GONE)
+            binding.btnUpdate2.setTransitionVisibility(View.VISIBLE)
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
             startActivityForResult(intent,1)
 
 
+
         }
         binding.btnUpdate.setOnClickListener {
+            validateData2()
+        }
+        binding.btnUpdate2.setOnClickListener {
             validateData()
         }
     }
@@ -69,6 +79,19 @@ class EditProfileActivity : AppCompatActivity() {
         }
         else{
             uploadImage()
+        }
+    }
+    private fun validateData2() {
+        fullName = binding.etFullName.text.toString().trim()
+        password = binding.etNewPass.text.toString().trim()
+        address = binding.etNewPass.text.toString().trim()
+        imageLink = binding.imageLink.text.toString().trim()
+
+        if (fullName.isEmpty()|| password.isEmpty() || address.isEmpty()){
+            Toast.makeText(this,"Empty Fields are note allowed..", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            uploadInfo2()
         }
     }
 
@@ -99,6 +122,33 @@ class EditProfileActivity : AppCompatActivity() {
         hashMap["fullName"] = fullName
         hashMap["address"] = address
         hashMap["image"] = imgUrl
+
+        database.getReference("Users")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .updateChildren(hashMap)
+            .addOnCompleteListener{
+                if (it.isSuccessful){
+                    progressDialog.dismiss()
+                    Toast.makeText(this,"Updated", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+
+                }
+                else{
+                    Toast.makeText(this,it.exception!!.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+    }
+    private fun uploadInfo2() {
+        progressDialog.setMessage("Updating Profile...")
+        progressDialog.show()
+
+
+        val hashMap : HashMap<String, Any?> = HashMap()
+
+        hashMap["password"] = password
+        hashMap["fullName"] = fullName
+        hashMap["address"] = address
 
         database.getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)

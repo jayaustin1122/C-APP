@@ -3,9 +3,12 @@ package com.example.maharlika_app.admin.events
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.auth.LoginActivity
@@ -28,6 +31,7 @@ class EditEventActivity : AppCompatActivity() {
     private lateinit var database : FirebaseDatabase
     private lateinit var progressDialog : ProgressDialog
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditEventBinding.inflate(layoutInflater)
@@ -54,17 +58,21 @@ class EditEventActivity : AppCompatActivity() {
             .into(binding.imageView)
 
         binding.btnUpdate.setOnClickListener {
-            updateData()
-
+            updateData2()
         }
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
         binding.imageView.setOnClickListener {
+            binding.btnUpdate.setTransitionVisibility(View.GONE)
+            binding.btnUpdate2.setTransitionVisibility(View.VISIBLE)
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
             startActivityForResult(intent,1)
+        }
+        binding.btnUpdate2.setOnClickListener {
+            updateData()
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -90,6 +98,22 @@ class EditEventActivity : AppCompatActivity() {
         }
         else{
             uploadImage()
+        }
+
+    }
+    private fun updateData2() {
+        //get data
+        eventsTitle = binding.etTitleEventsEdit.text.toString()
+        eventsDescription = binding.etDesciptionEventsEdit.text.toString()
+
+        if (eventsTitle.isEmpty()) {
+            Toast.makeText(this, "Enter Title", Toast.LENGTH_SHORT).show()
+        }
+        else if (eventsDescription.isEmpty()) {
+            Toast.makeText(this, "Enter Description", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            uploadInfo2()
         }
 
     }
@@ -119,6 +143,32 @@ class EditEventActivity : AppCompatActivity() {
         hashMap["eventsTitle"] = "$eventsTitle"
         hashMap["eventsDescription"] = "$eventsDescription"
         hashMap["image"] = imgUrl
+
+        val dbRef = FirebaseDatabase.getInstance().getReference("events")
+        dbRef.child(eventId)
+            .updateChildren(hashMap)
+            .addOnSuccessListener {
+                progressDialog.dismiss()
+                Toast.makeText(this, "Event Updated", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, AdminHolderActivity::class.java))
+                finish()
+            }
+            .addOnFailureListener { e ->
+                progressDialog.dismiss()
+                Toast.makeText(this, "Unable to update due to ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+    }
+    private fun uploadInfo2() {
+        progressDialog.setMessage("Updating Event")
+        progressDialog.show()
+
+        //set up to db
+        val hashMap = HashMap<String, Any?>()
+
+        hashMap["eventsTitle"] = "$eventsTitle"
+        hashMap["eventsDescription"] = "$eventsDescription"
 
         val dbRef = FirebaseDatabase.getInstance().getReference("events")
         dbRef.child(eventId)

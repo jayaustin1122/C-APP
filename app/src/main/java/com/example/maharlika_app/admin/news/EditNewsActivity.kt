@@ -3,10 +3,12 @@ package com.example.maharlika_app.admin.news
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityEditNewsBinding
@@ -29,6 +31,7 @@ class EditNewsActivity : AppCompatActivity() {
     private lateinit var database : FirebaseDatabase
     private lateinit var progressDialog: ProgressDialog
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditNewsBinding.inflate(layoutInflater)
@@ -54,13 +57,17 @@ class EditNewsActivity : AppCompatActivity() {
             .into(binding.imageView)
 
         binding.btnUpdate.setOnClickListener {
+            updateData2()
+        }
+        binding.btnUpdate2.setOnClickListener {
             updateData()
-
         }
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
         binding.imageView.setOnClickListener {
+            binding.btnUpdate.setTransitionVisibility(View.GONE)
+            binding.btnUpdate2.setTransitionVisibility(View.VISIBLE)
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
@@ -92,8 +99,21 @@ class EditNewsActivity : AppCompatActivity() {
         else{
             uploadImage()
         }
+    }
+    private fun updateData2() {
+        //get data
+        newsTitle = binding.etTitleEventsEdit.text.toString()
+        newsDesc = binding.etDesciptionEventsEdit.text.toString()
 
-
+        if (newsTitle.isEmpty()) {
+            Toast.makeText(this, "Enter Title", Toast.LENGTH_SHORT).show()
+        }
+        else if (newsDesc.isEmpty()) {
+            Toast.makeText(this, "Enter Description", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            uploadInfo2()
+        }
     }
     private fun uploadImage() {
         progressDialog.setMessage("Uploading New Image...")
@@ -135,8 +155,31 @@ class EditNewsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Unable to update due to ${e.message}", Toast.LENGTH_SHORT)
                     .show()
             }
+    }
+    private fun uploadInfo2() {
+        progressDialog.setMessage("Updating Event")
+        progressDialog.show()
 
+        //set up to db
+        val hashMap = HashMap<String, Any?>()
 
+        hashMap["newsTitle"] = "$newsTitle"
+        hashMap["newsDescription"] = "$newsDesc"
+
+        val dbRef = FirebaseDatabase.getInstance().getReference("news")
+        dbRef.child(newstId)
+            .updateChildren(hashMap)
+            .addOnSuccessListener {
+                progressDialog.dismiss()
+                Toast.makeText(this, "News Updated", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, AdminHolderActivity::class.java))
+                finish()
+            }
+            .addOnFailureListener { e ->
+                progressDialog.dismiss()
+                Toast.makeText(this, "Unable to update due to ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
     }
 
 }
