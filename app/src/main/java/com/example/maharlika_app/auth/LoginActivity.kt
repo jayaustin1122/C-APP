@@ -20,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var progressDialog : ProgressDialog
+    private var backPressTime = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -42,6 +43,16 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this,ForgotPasswordActivity::class.java))
             finish()
         }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (backPressTime + 2000 > System.currentTimeMillis()){
+            super.onBackPressed()
+        }else{
+            Toast.makeText(this,"Press back again to  exit app", Toast.LENGTH_SHORT).show()
+        }
+        backPressTime = System.currentTimeMillis()
     }
     var email = ""
     var pass = ""

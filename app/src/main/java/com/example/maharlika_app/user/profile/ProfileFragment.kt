@@ -1,5 +1,6 @@
 package com.example.maharlika_app.user.profile
 
+import android.app.FragmentManager
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -40,6 +41,7 @@ class ProfileFragment : Fragment() {
         binding.tvBtnLogout.setOnClickListener {
             auth.signOut()
             startActivity( Intent(this@ProfileFragment.requireContext(), LoginActivity::class.java))
+
         }
         binding.tvBtnEdit.setOnClickListener {
             startActivity( Intent(this@ProfileFragment.requireContext(), EditProfileActivity::class.java))
