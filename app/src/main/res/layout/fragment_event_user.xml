@@ -7,6 +7,18 @@
     tools:context=".user.events.EventUserFragment">
 
 
+    <EditText
+        android:id="@+id/searchEt2"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:queryHint="Search News"
+        android:background="@drawable/searchbg"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview2"
         android:layout_width="match_parent"
@@ -22,12 +34,13 @@
         android:id="@+id/adminEventRv"
         android:layout_width="match_parent"
         android:layout_height="210dp"
+        android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/searchEt"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/user_event_row" />
 
@@ -51,9 +64,24 @@
         android:layout_marginStart="10dp"
         android:fontFamily="@font/bold"
         android:text="News"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminEventRv" />
+
+    <EditText
+        android:id="@+id/searchEt"
+        android:layout_width="270dp"
+        android:layout_height="34dp"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:hint="Search Events"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/searchbg"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView4">
+
+    </EditText>
 </androidx.constraintlayout.widget.ConstraintLayout>

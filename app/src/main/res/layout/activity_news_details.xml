@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
         android:layout_margin="20dp"
         android:background="@drawable/bgdesign"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,24 +47,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newsCover" />
 
-        <TextView
-            android:id="@+id/newsDes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_margin="10dp"
-            android:fontFamily="@font/medium"
-            android:gravity="top|left"
-            android:inputType="textMultiLine"
-            android:padding="10dp"
-            android:scrollbars="vertical"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newsTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/newsTitle">
+
+            <TextView
+                android:id="@+id/newsDes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/medium"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:text="TextViewdddddddddddddddddddddddddddddddddddddddddddddddadasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout

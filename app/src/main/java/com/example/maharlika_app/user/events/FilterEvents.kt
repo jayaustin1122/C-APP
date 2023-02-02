@@ -1,6 +1,7 @@
-package com.example.maharlika.ui.admin.events
+package com.example.maharlika_app.user.events
 
 import android.widget.Filter
+import com.example.maharlika.ui.admin.events.ModelEvent
 
 class FilterEvents:Filter {
 
@@ -8,10 +9,10 @@ class FilterEvents:Filter {
     private var filterListEvent : ArrayList<ModelEvent>
 
     //adapter
-    private var adapterEvents : EventAdapter
+    private var adapterEvents : UserEventAdapter
 
     // constructor
-    constructor(filterListEvent: ArrayList<ModelEvent>, adapterEvents: EventAdapter) : super() {
+    constructor(filterListEvent: ArrayList<ModelEvent>, adapterEvents: UserEventAdapter) : super() {
         this.filterListEvent = filterListEvent
         this.adapterEvents = adapterEvents
     }

@@ -16,19 +16,16 @@ import com.example.maharlika_app.user.events.EventDetailActivity
 import com.google.firebase.database.FirebaseDatabase
 
 
-class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterable{
+class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>{
     private lateinit var binding : EventItemRowBinding
     private val context : Context
     public var eventArrayList : ArrayList<ModelEvent>
-    private var filterListEvent : ArrayList<ModelEvent>
-    private var filter : FilterEvents? = null
 
 
     //constructor
     constructor(context: Context, eventArrayList: ArrayList<ModelEvent>) {
         this.context = context
         this.eventArrayList = eventArrayList
-        this.filterListEvent = eventArrayList
     }
 
     //inner class to hold ui in row item event
@@ -150,10 +147,4 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
         return eventArrayList.size
     }
 
-    override fun getFilter(): Filter {
-        if (filter == null){
-            filter = FilterEvents(filterListEvent,this)
-        }
-        return filter as FilterEvents
-    }
 }

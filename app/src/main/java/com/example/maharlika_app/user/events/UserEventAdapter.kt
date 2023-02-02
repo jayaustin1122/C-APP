@@ -5,23 +5,24 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.maharlika.ui.admin.events.ModelEvent
 import com.example.maharlika_app.databinding.EventItemRowBinding
 import com.example.maharlika_app.databinding.UserEventRowBinding
 
-class UserEventAdapter : RecyclerView.Adapter<UserEventAdapter.ViewHolderUserEvent> {
+class UserEventAdapter : RecyclerView.Adapter<UserEventAdapter.ViewHolderUserEvent>,Filterable {
     private lateinit var binding : UserEventRowBinding
     private val context : Context
     public var eventArrayList : ArrayList<ModelEvent>
+    private var filterListEvent : ArrayList<ModelEvent>
+    private var filter : FilterEvents? = null
 
-    constructor(context: Context, eventArrayList: ArrayList<ModelEvent>) : super() {
+    constructor(context: Context, eventArrayList: ArrayList<ModelEvent>){
         this.context = context
         this.eventArrayList = eventArrayList
+        this.filterListEvent = eventArrayList
     }
 
 
@@ -59,5 +60,11 @@ class UserEventAdapter : RecyclerView.Adapter<UserEventAdapter.ViewHolderUserEve
             context.startActivity(intent)
         }
 
+    }
+    override fun getFilter(): Filter {
+        if (filter == null){
+            filter = FilterEvents(filterListEvent,this)
+        }
+        return filter as FilterEvents
     }
 }
