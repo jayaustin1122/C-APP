@@ -47,12 +47,12 @@ class EditProfileActivity : AppCompatActivity() {
             )
         }
         binding.imageView.setOnClickListener {
-            binding.btnUpdate.setTransitionVisibility(View.GONE)
-            binding.btnUpdate2.setTransitionVisibility(View.VISIBLE)
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
             startActivityForResult(intent,1)
+            binding.btnUpdate.setTransitionVisibility(View.GONE)
+            binding.btnUpdate2.setTransitionVisibility(View.VISIBLE)
 
 
 
