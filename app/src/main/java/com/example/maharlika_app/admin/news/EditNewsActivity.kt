@@ -63,7 +63,8 @@ class EditNewsActivity : AppCompatActivity() {
             updateData()
         }
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, AdminHolderActivity::class.java))
+            finish()
         }
         binding.imageView.setOnClickListener {
 

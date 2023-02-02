@@ -1,9 +1,11 @@
 package com.example.maharlika_app.user.news
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.maharlika_app.databinding.ActivityNewsDetailsBinding
+import com.example.maharlika_app.user.MainActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -21,7 +23,8 @@ class NewsDetailsActivity : AppCompatActivity() {
         newsId = intent.getStringExtra("id")!!
         loadDetails()
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
     private fun loadDetails() {

@@ -1,10 +1,13 @@
 package com.example.maharlika_app.user.events
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.disklrucache.DiskLruCache.Value
+import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityEventDetailBinding
+import com.example.maharlika_app.user.MainActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -23,7 +26,8 @@ class EventDetailActivity : AppCompatActivity() {
         eventId = intent.getStringExtra("id")!!
         loadDetails()
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
     }

@@ -63,6 +63,10 @@ class EditProfileActivity : AppCompatActivity() {
         binding.btnUpdate2.setOnClickListener {
             validateData()
         }
+        binding.btnBack.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
     }
     private var fullName = ""
     private var password = ""

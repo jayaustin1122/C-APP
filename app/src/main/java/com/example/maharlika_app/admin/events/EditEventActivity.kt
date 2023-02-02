@@ -61,7 +61,8 @@ class EditEventActivity : AppCompatActivity() {
             updateData2()
         }
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, AdminHolderActivity::class.java))
+            finish()
         }
         binding.imageView.setOnClickListener {
 

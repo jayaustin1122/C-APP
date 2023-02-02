@@ -43,7 +43,8 @@ class EditAccountsActivity : AppCompatActivity() {
 
         }
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, AdminHolderActivity::class.java))
+            finish()
         }
 
 

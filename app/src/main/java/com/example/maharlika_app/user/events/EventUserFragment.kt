@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maharlika.ui.admin.events.EventAdapter
 import com.example.maharlika.ui.admin.events.ModelEvent
@@ -111,7 +112,7 @@ class EventUserFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // clear list
                 eventArrayList.clear()
-                for (data in snapshot.children){
+                for (data in snapshot.children) {
                     //data as model
                     val model = data.getValue(ModelEvent::class.java)
 
@@ -119,13 +120,17 @@ class EventUserFragment : Fragment() {
                     eventArrayList.add(model!!)
                 }
                 //set up adapter
-                adapter = UserEventAdapter(this@EventUserFragment.requireContext(),eventArrayList)
-                //set to recycler
-                binding.adminEventRv.setHasFixedSize(true)
-                val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                binding.adminEventRv.layoutManager = layoutManager
-                binding.adminEventRv.adapter = adapter
+                lifecycleScope.launchWhenResumed {
+                    adapter =
+                        UserEventAdapter(this@EventUserFragment.requireContext(), eventArrayList)
+                    //set to recycler
+                    binding.adminEventRv.setHasFixedSize(true)
+                    val layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.adminEventRv.layoutManager = layoutManager
+                    binding.adminEventRv.adapter = adapter
 
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -143,7 +148,7 @@ class EventUserFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // clear list
                 newsArrayList.clear()
-                for (data in snapshot.children){
+                for (data in snapshot.children) {
                     //data as model
                     val model = data.getValue(ModelNews::class.java)
 
@@ -151,13 +156,15 @@ class EventUserFragment : Fragment() {
                     newsArrayList.add(model!!)
                 }
                 //set up adapter
-                adapter2 = UserNewsAdapter(this@EventUserFragment.requireContext(),newsArrayList)
-                //set to recycler
-                binding.recyclerview2.setHasFixedSize(true)
-                binding.recyclerview2.layoutManager = LinearLayoutManager(context)
-                binding.recyclerview2.adapter = adapter2
+                lifecycleScope.launchWhenResumed {
+                        adapter2 = UserNewsAdapter(this@EventUserFragment.requireContext(), newsArrayList)
+                        //set to recycler
+                        binding.recyclerview2.setHasFixedSize(true)
+                        binding.recyclerview2.layoutManager = LinearLayoutManager(context)
+                        binding.recyclerview2.adapter = adapter2
 
-            }
+                    }
+                 }
 
             override fun onCancelled(error: DatabaseError) {
 

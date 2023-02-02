@@ -46,7 +46,8 @@ class AddNewsActivity : AppCompatActivity() {
             validateData()
         }
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, AdminHolderActivity::class.java))
+            finish()
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -113,8 +114,8 @@ class AddNewsActivity : AppCompatActivity() {
             .addOnCompleteListener{
                 if (it.isSuccessful){
                     progressDialog.dismiss()
-                    startActivity(Intent(this, AdminHolderActivity::class.java))
-                    finish()
+                    val intent = Intent(this, AdminHolderActivity::class.java)
+                    startActivity(intent)
                     Toast.makeText(this,"News Added", Toast.LENGTH_SHORT).show()
                 }
                 else{

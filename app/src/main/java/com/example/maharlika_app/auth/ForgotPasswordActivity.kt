@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityForgotPasswordBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -27,7 +28,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
 
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
         binding.btnSubmit.setOnClickListener {
             validateData()

@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.maharlika.ui.admin.events.ModelEvent
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.auth.LoginActivity
+import com.example.maharlika_app.auth.SignUpActivity
 import com.example.maharlika_app.databinding.ActivityAddEventBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -48,7 +49,8 @@ class AddEventActivity : AppCompatActivity() {
             validateData()
         }
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, AdminHolderActivity::class.java))
+            finish()
         }
 
     }
@@ -118,8 +120,8 @@ class AddEventActivity : AppCompatActivity() {
             .addOnCompleteListener{
                 if (it.isSuccessful){
                     progressDialog.dismiss()
-                    startActivity(Intent(this,AdminHolderActivity::class.java))
-                    finish()
+                    val intent = Intent(this, AdminHolderActivity::class.java)
+                    startActivity(intent)
                     Toast.makeText(this,"Event Added", Toast.LENGTH_SHORT).show()
                 }
                 else{

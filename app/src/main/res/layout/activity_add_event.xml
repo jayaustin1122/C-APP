@@ -107,7 +107,7 @@
             android:id="@+id/etDesciptionEvents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="top|center"
+            android:gravity="top|left"
             android:inputType="textMultiLine"
             android:lines="10"
             android:fontFamily="@font/regular"
