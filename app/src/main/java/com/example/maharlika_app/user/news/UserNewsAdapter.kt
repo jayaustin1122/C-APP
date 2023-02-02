@@ -5,26 +5,33 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.maharlika.ui.admin.events.ModelEvent
 
 import com.example.maharlika_app.admin.news.ModelNews
 import com.example.maharlika_app.databinding.UserEventRowBinding
 import com.example.maharlika_app.databinding.UserNewsRowBinding
 import com.example.maharlika_app.user.events.EventDetailActivity
+import com.example.maharlika_app.user.events.FilterEvents
 
 
-class UserNewsAdapter : RecyclerView.Adapter<UserNewsAdapter.ViewHolderUserNews> {
+class UserNewsAdapter : RecyclerView.Adapter<UserNewsAdapter.ViewHolderUserNews>, Filterable {
     private lateinit var binding : UserNewsRowBinding
     private val context : Context
     public var newsArrayList : ArrayList<ModelNews>
+    private var filterListNews : ArrayList<ModelNews>
+    private var filter : FilterNews? = null
 
 
-    constructor(context: Context, eventArrayList: ArrayList<ModelNews>) : super() {
+    constructor(context: Context, newsArrayList: ArrayList<ModelNews>) : super() {
         this.context = context
-        this.newsArrayList = eventArrayList
+        this.newsArrayList = newsArrayList
+        this.filterListNews = newsArrayList
     }
     inner class ViewHolderUserNews(itemView: View): RecyclerView.ViewHolder(itemView){
         var title : TextView = binding.tvTitle
@@ -60,6 +67,13 @@ class UserNewsAdapter : RecyclerView.Adapter<UserNewsAdapter.ViewHolderUserNews>
             intent.putExtra("id",id)//reference to load the other details
             context.startActivity(intent)
         }
+    }
+
+    override fun getFilter(): Filter {
+        if (filter == null){
+            filter = FilterNews(filterListNews,this)
+        }
+        return filter as FilterNews
     }
 
 }

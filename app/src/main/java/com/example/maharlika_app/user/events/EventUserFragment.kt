@@ -80,6 +80,27 @@ class EventUserFragment : Fragment() {
             }
 
         })
+        binding.searchEt2.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //call this functions when user typing
+
+                try {
+                    adapter2.filter.filter(s)
+                }
+                catch (e: Exception){
+
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
     }
     private fun getEvents() {
         //initialize
