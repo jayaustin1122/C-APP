@@ -1,5 +1,6 @@
 package com.example.maharlika_app.user.profile
 
+import android.app.Dialog
 import android.app.FragmentManager
 import android.app.ProgressDialog
 import android.content.Intent
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.maharlika_app.R
 import com.example.maharlika_app.auth.LoginActivity
+import com.example.maharlika_app.databinding.AboutAppBinding
 import com.example.maharlika_app.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -46,6 +48,16 @@ class ProfileFragment : Fragment() {
         binding.tvBtnEdit.setOnClickListener {
             startActivity( Intent(this@ProfileFragment.requireContext(), EditProfileActivity::class.java))
         }
+        binding.tvBtnAboutApp.setOnClickListener {
+            openDialogAbout()
+        }
+    }
+
+    private fun openDialogAbout() {
+        val dialog = Dialog(this@ProfileFragment.requireContext())
+        val binding : AboutAppBinding = AboutAppBinding.inflate(layoutInflater)
+        dialog.setContentView(binding.root)
+        dialog.show()
     }
 
     private fun loadUsersInfo() {
