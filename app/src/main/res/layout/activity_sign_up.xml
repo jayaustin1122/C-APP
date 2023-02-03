@@ -10,8 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="320dp"
         android:layout_height="573dp"
-        android:background="@drawable/bgdesign"
         android:layout_marginTop="120dp"
+        android:background="@drawable/bgdesign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/bold"
             android:text="@string/sign_in"
             android:textColor="@color/Blue"
-            android:fontFamily="@font/bold"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/tvAlreadyHave2"
             app:layout_constraintTop_toTopOf="@+id/tvAlreadyHave2" />
@@ -34,10 +34,10 @@
             android:id="@+id/checkBox"
             android:layout_width="249dp"
             android:layout_height="51dp"
+            android:fontFamily="@font/medium"
             android:padding="10dp"
             android:text="@string/agree_terms_and_conditions"
             android:textSize="13sp"
-            android:fontFamily="@font/medium"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,8 +51,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/sign_up"
             android:fontFamily="@font/bold"
+            android:text="@string/sign_up"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,8 +77,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etFullNameSignUp"
                 android:layout_width="match_parent"
-                android:fontFamily="@font/regular"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,9 +86,9 @@
             android:id="@+id/tvAlreadyHave2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/regular"
             android:text="Already Registered?"
             android:textColor="@color/black"
-            android:fontFamily="@font/regular"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
@@ -109,9 +109,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etAddreddSignUp"
-                android:fontFamily="@font/regular"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,10 +134,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassSignUp"
-                android:inputType="textPassword"
-                android:fontFamily="@font/regular"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,9 +149,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
-            app:endIconMode="password_toggle"
             android:layout_marginEnd="15dp"
             android:hint="@string/confirm_password"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -160,9 +160,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPass2SignUp"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,25 +184,35 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmailSignUp"
-                android:fontFamily="@font/regular"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:fontFamily="@font/bold"
-        android:text="@string/sign_up"
+        android:padding="10dp"
+        android:text="Sign-Up"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userImg"

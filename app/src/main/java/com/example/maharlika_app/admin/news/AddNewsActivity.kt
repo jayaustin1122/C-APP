@@ -6,15 +6,24 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityAddNewsBinding
+import com.example.maharlika_app.notifications.NotificationData
+import com.example.maharlika_app.notifications.PushNotification
+import com.example.maharlika_app.notifications.RetrifitInstance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-
+const val TOPIC = "/topics/myTopic"
 class AddNewsActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddNewsBinding
     private lateinit var progressDialog : ProgressDialog
@@ -26,6 +35,7 @@ class AddNewsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
 
         //init
         auth = FirebaseAuth.getInstance()
@@ -73,6 +83,13 @@ class AddNewsActivity : AppCompatActivity() {
         }
         else{
             uploadImage()
+            PushNotification(
+                NotificationData(title,description),
+                com.example.maharlika_app.admin.events.TOPIC
+            ).also {
+                sendNotification(it)
+            }
+
         }
     }
     private fun uploadImage() {
@@ -137,5 +154,21 @@ class AddNewsActivity : AppCompatActivity() {
         val currentDateObject = Date()
         val formatter = SimpleDateFormat("dd-MM-yyyy")
         return formatter.format(currentDateObject)
+    }
+    val TAG = "MainActivity"
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+
+        try{
+            val response = RetrifitInstance.api.postNotification(notification)
+            if (response.isSuccessful) {
+                Log.d(TAG, "Response: ${Gson().toJson(response)}")
+            }
+            else{
+                Log.e(TAG,response.errorBody().toString() )
+            }
+        }
+        catch (e:Exception){
+            Log.e(TAG,e.toString())
+        }
     }
 }

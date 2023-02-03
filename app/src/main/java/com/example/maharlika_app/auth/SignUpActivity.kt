@@ -52,7 +52,7 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(Intent(this,LoginActivity::class.java))
             finish()
         }
-        binding.back.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             startActivity(Intent(this,LoginActivity::class.java))
             finish()
         }
