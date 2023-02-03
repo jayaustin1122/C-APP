@@ -1,11 +1,13 @@
 package com.example.maharlika_app.admin.events
 
 import android.annotation.SuppressLint
+import android.app.Notification
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.maharlika.ui.admin.events.ModelEvent
@@ -13,11 +15,23 @@ import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.auth.LoginActivity
 import com.example.maharlika_app.auth.SignUpActivity
 import com.example.maharlika_app.databinding.ActivityAddEventBinding
+import com.example.maharlika_app.notifications.NotificationData
+import com.example.maharlika_app.notifications.PushNotification
+import com.example.maharlika_app.notifications.RetrifitInstance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.storage.FirebaseStorage
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 import java.text.SimpleDateFormat
 import java.util.*
+
+const val TOPIC = "/topics/myTopic"
 
 class AddEventActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddEventBinding
@@ -34,6 +48,7 @@ class AddEventActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
         database = FirebaseDatabase.getInstance()
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("PLease wait")
@@ -77,7 +92,14 @@ class AddEventActivity : AppCompatActivity() {
             Toast.makeText(this,"Empty Fields are not allowed", Toast.LENGTH_SHORT).show()
         }
         else{
+            PushNotification(
+                NotificationData(title,description),
+                TOPIC
+            ).also {
+                sendNotification(it)
+            }
             uploadImage()
+
         }
     }
     private fun uploadImage() {
@@ -146,5 +168,21 @@ class AddEventActivity : AppCompatActivity() {
         val currentDateObject = Date()
         val formatter = SimpleDateFormat("dd-MM-yyyy")
         return formatter.format(currentDateObject)
+    }
+    val TAG = "MainActivity"
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+
+        try{
+            val response = RetrifitInstance.api.postNotification(notification)
+            if (response.isSuccessful) {
+                Log.d(TAG, "Response: ${Gson().toJson(response)}")
+            }
+            else{
+                Log.e(TAG,response.errorBody().toString() )
+            }
+        }
+        catch (e:Exception){
+            Log.e(TAG,e.toString())
+        }
     }
 }
