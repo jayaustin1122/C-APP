@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.maharlika_app.R
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityLoginBinding
+import com.example.maharlika_app.user.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
     private lateinit var auth : FirebaseAuth
     private lateinit var progressDialog : ProgressDialog
+    private var backPressTime = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -37,6 +39,20 @@ class LoginActivity : AppCompatActivity() {
         binding.btnSignIn.setOnClickListener {
             validateData()
         }
+        binding.tvForgot.setOnClickListener {
+            startActivity(Intent(this,ForgotPasswordActivity::class.java))
+            finish()
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (backPressTime + 2000 > System.currentTimeMillis()){
+            super.onBackPressed()
+        }else{
+            Toast.makeText(this,"Press back again to  exit app", Toast.LENGTH_SHORT).show()
+        }
+        backPressTime = System.currentTimeMillis()
     }
     var email = ""
     var pass = ""
@@ -85,9 +101,9 @@ class LoginActivity : AppCompatActivity() {
                     val userType = snapshot.child("userType").value
 
                     if (userType == "member") {
-//                        Toast.makeText(applicationContext, "Login Successfully", Toast.LENGTH_SHORT).show()
-//                        startActivity(Intent(applicationContext,MainActivity::class.java))
-//                        finish()
+                        Toast.makeText(applicationContext, "Login Successfully", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                        finish()
 
                     } else if (userType == "admin") {
                         Toast.makeText(applicationContext, "Welcome Admin", Toast.LENGTH_SHORT).show()

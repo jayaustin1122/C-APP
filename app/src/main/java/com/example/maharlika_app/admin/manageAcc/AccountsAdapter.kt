@@ -68,6 +68,7 @@ class AccountsAdapter: RecyclerView.Adapter<AccountsAdapter.ViewHolderAccounts> 
         val accId = model.id
         val fullname = model.fullName
         val pass = model.password
+        val image = model.image
         // show options
         val options = arrayOf("Edit","Delete")
         // show alert dialog
@@ -81,6 +82,7 @@ class AccountsAdapter: RecyclerView.Adapter<AccountsAdapter.ViewHolderAccounts> 
                     intent.putExtra("id", accId)
                     intent.putExtra("fullname", fullname)
                     intent.putExtra("pass", pass)
+                    intent.putExtra("image", image)
                     //id as the reference to edit events
                     context.startActivity(intent)
 

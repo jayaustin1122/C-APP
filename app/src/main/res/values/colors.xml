@@ -27,6 +27,7 @@
     <color name="midgrey">#317A7A7A</color>
     <color name="red">#F1242B</color>
     <color name="green">#2A8303</color>
+    <color name="bg">#D9DCD8</color>
 
 
 </resources>

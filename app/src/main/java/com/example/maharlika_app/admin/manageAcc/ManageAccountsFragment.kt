@@ -12,6 +12,7 @@ import com.example.maharlika_app.R
 import com.example.maharlika_app.admin.news.AddNewsActivity
 import com.example.maharlika_app.admin.news.ModelNews
 import com.example.maharlika_app.admin.news.NewsAdapter
+import com.example.maharlika_app.auth.LoginActivity
 import com.example.maharlika_app.databinding.FragmentManageAccountsBinding
 import com.example.maharlika_app.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -47,6 +48,10 @@ class ManageAccountsFragment : Fragment() {
         progressDialog.setTitle("PLease wait")
         progressDialog.setCanceledOnTouchOutside(false)
         getEvents()
+        binding.imgbtnLogout.setOnClickListener {
+            auth.signOut()
+            startActivity( Intent(this@ManageAccountsFragment.requireContext(), LoginActivity::class.java))
+        }
 
 
     }

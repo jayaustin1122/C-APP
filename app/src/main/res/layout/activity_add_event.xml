@@ -4,35 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mainbg"
-    tools:context=".admin.events.AddEventActivity">
+    tools:context=".admin.news.AddNewsActivity">
 
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/add_new_event"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="30sp"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/actionshape"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="37dp"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@color/fulltrans"
+            android:src="@drawable/backwhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/bold"
+            android:text="Add Event"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAdd"
         android:layout_width="239dp"
         android:layout_height="171dp"
-        android:layout_marginTop="28dp"
         android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -40,9 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:textSize="20sp"
         android:text="@string/cover_photo"
         android:textColor="@color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/bold"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -57,7 +70,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="@string/title"
+        android:hint="@string/events"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,6 +78,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTitleEvents"
+            android:gravity="top|center"
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:fontFamily="@font/bold"
+            android:padding="10dp"
+            android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -87,7 +106,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDesciptionEvents"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:fontFamily="@font/regular"
+            android:padding="10dp"
+            android:scrollbars="vertical" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,14 +121,11 @@
         android:id="@+id/btnSubmit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:text="@string/submit"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/bold"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

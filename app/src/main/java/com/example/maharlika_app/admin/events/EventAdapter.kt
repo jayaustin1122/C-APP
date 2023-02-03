@@ -12,22 +12,20 @@ import com.bumptech.glide.Glide
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.admin.events.EditEventActivity
 import com.example.maharlika_app.databinding.EventItemRowBinding
+import com.example.maharlika_app.user.events.EventDetailActivity
 import com.google.firebase.database.FirebaseDatabase
 
 
-class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterable{
+class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>{
     private lateinit var binding : EventItemRowBinding
     private val context : Context
     public var eventArrayList : ArrayList<ModelEvent>
-    private var filterListEvent : ArrayList<ModelEvent>
-    private var filter : FilterEvents? = null
 
 
     //constructor
     constructor(context: Context, eventArrayList: ArrayList<ModelEvent>) {
         this.context = context
         this.eventArrayList = eventArrayList
-        this.filterListEvent = eventArrayList
     }
 
     //inner class to hold ui in row item event
@@ -75,6 +73,11 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
         holder.moreBtn.setOnClickListener {
             moreOptions(model,holder)
         }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, EventDetailActivity::class.java)
+            intent.putExtra("id",id)//reference to load the other details
+            context.startActivity(intent)
+        }
     }
 
     private fun moreOptions(model: ModelEvent, holder: EventAdapter.ViewHolderEvent) {
@@ -82,6 +85,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
         val eventId = model.id
         val eventTitle = model.eventsTitle
         val eventdescription = model.eventsDescription
+        val image = model.image
         // show options
         val options = arrayOf("Edit","Delete")
         // show alert dialog
@@ -95,6 +99,7 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
                     intent.putExtra("id", eventId)
                     intent.putExtra("eventTitle", eventTitle)
                     intent.putExtra("eventdescription", eventdescription)
+                    intent.putExtra("image", image)
                     //id as the reference to edit events
                     context.startActivity(intent)
 
@@ -142,10 +147,4 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ViewHolderEvent>,Filterab
         return eventArrayList.size
     }
 
-    override fun getFilter(): Filter {
-        if (filter == null){
-            filter = FilterEvents(filterListEvent,this)
-        }
-        return filter as FilterEvents
-    }
 }

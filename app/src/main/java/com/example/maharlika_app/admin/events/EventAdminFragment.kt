@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maharlika.ui.admin.events.EventAdapter
 import com.example.maharlika.ui.admin.events.ModelEvent
@@ -68,12 +69,17 @@ class EventAdminFragment : Fragment() {
                     // add to array
                     eventArrayList.add(model!!)
                 }
+                lifecycleScope.launchWhenResumed {
+
+                    // do your work here
+                    adapter = EventAdapter(this@EventAdminFragment.requireContext(),eventArrayList)
+                    //set to recycler
+                    binding.adminEventRv.setHasFixedSize(true)
+                    binding.adminEventRv.layoutManager = LinearLayoutManager(context)
+                    binding.adminEventRv.adapter = adapter
+
+                }
                 //set up adapter
-                adapter = EventAdapter(this@EventAdminFragment.requireContext(),eventArrayList)
-                //set to recycler
-                binding.adminEventRv.setHasFixedSize(true)
-                binding.adminEventRv.layoutManager = LinearLayoutManager(context)
-                binding.adminEventRv.adapter = adapter
 
             }
 

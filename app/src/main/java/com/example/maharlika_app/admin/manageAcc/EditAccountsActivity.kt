@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityEditAccountsBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -15,6 +16,7 @@ class EditAccountsActivity : AppCompatActivity() {
     private var acctId = ""
     private var fullname = ""
     private var pass = ""
+    private var image = ""
     private lateinit var progressDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +30,20 @@ class EditAccountsActivity : AppCompatActivity() {
         acctId = intent.getStringExtra("id")!!
         fullname = intent.getStringExtra("fullname")!!
         pass = intent.getStringExtra("pass")!!
+        image = intent.getStringExtra("image")!!
 
         binding.etTitleEventsEdit.setText(fullname)
         binding.etDesciptionEventsEdit.setText(pass)
 
+        Glide.with(this)
+            .load(image)
+            .into(binding.imageView)
         binding.btnUpdate.setOnClickListener {
             updateData()
 
         }
-        binding.imgBtnBack.setOnClickListener {
-            val intent = Intent(this, AdminHolderActivity::class.java)
-            startActivity(intent)
+        binding.btnBack.setOnClickListener {
+            startActivity(Intent(this, AdminHolderActivity::class.java))
             finish()
         }
 

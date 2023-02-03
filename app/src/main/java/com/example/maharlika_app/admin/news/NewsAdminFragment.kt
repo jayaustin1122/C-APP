@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maharlika.ui.admin.events.EventAdapter
 import com.example.maharlika.ui.admin.events.ModelEvent
@@ -61,7 +62,7 @@ class NewsAdminFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // clear list
                 newsArrayList.clear()
-                for (data in snapshot.children){
+                for (data in snapshot.children) {
                     //data as model
                     val model = data.getValue(ModelNews::class.java)
 
@@ -69,12 +70,14 @@ class NewsAdminFragment : Fragment() {
                     newsArrayList.add(model!!)
                 }
                 //set up adapter
-                adapter = NewsAdapter(this@NewsAdminFragment.requireContext(),newsArrayList)
-                //set to recycler
-                binding.adminEventRv.setHasFixedSize(true)
-                binding.adminEventRv.layoutManager = LinearLayoutManager(context)
-                binding.adminEventRv.adapter = adapter
+                lifecycleScope.launchWhenResumed {
+                    adapter = NewsAdapter(this@NewsAdminFragment.requireContext(), newsArrayList)
+                    //set to recycler
+                    binding.adminEventRv.setHasFixedSize(true)
+                    binding.adminEventRv.layoutManager = LinearLayoutManager(context)
+                    binding.adminEventRv.adapter = adapter
 
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
