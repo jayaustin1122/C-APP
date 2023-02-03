@@ -137,11 +137,18 @@ class AddEventActivity : AppCompatActivity() {
         hashMap["currentTime"] = currentTime
         hashMap["id"] = "$timestamp"
 
-        database.getReference("Users")
-            .child(auth.uid!!)
-            .child("eventNotifications")
+        val hashMap2 : HashMap<String,Any?> = HashMap()
+        hashMap2["uidNotif"] = uid
+        hashMap2["NotifTitle"] = title
+        hashMap2["NotifDescription"] = description
+        hashMap2["imageNotif"] = imgUrl
+        hashMap2["currentDateNotif"] = currentDate
+        hashMap2["currentTimeNotif"] = currentTime
+        hashMap2["id"] = "$timestamp"
+
+        database.getReference("Notifications")
             .child(timestamp.toString())
-            .setValue(hashMap)
+            .setValue(hashMap2)
         database.getReference("events")
             .child(timestamp.toString())
             .setValue(hashMap)

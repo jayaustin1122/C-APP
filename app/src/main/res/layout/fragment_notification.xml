@@ -7,6 +7,7 @@
     tools:context=".user.notfications.NotificationFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notifRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
