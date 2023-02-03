@@ -137,6 +137,11 @@ class AddEventActivity : AppCompatActivity() {
         hashMap["currentTime"] = currentTime
         hashMap["id"] = "$timestamp"
 
+        database.getReference("Users")
+            .child(auth.uid!!)
+            .child("eventNotifications")
+            .child(timestamp.toString())
+            .setValue(hashMap)
         database.getReference("events")
             .child(timestamp.toString())
             .setValue(hashMap)
