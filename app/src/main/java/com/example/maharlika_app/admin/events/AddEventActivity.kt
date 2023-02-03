@@ -92,13 +92,14 @@ class AddEventActivity : AppCompatActivity() {
             Toast.makeText(this,"Empty Fields are not allowed", Toast.LENGTH_SHORT).show()
         }
         else{
+            uploadImage()
             PushNotification(
                 NotificationData(title,description),
                 TOPIC
             ).also {
                 sendNotification(it)
             }
-            uploadImage()
+
 
         }
     }
