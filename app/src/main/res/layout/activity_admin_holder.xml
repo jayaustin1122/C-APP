@@ -58,14 +58,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView8"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/maharlikalogo"
-            app:layout_constraintStart_toEndOf="@+id/tvName"
-            app:layout_constraintTop_toTopOf="@+id/tvName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
