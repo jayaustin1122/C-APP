@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                     binding.tvName.text = fullName
                     binding.textView5.text = userType
 
-                    Glide.with(this@MainActivity)
+                    Glide.with(applicationContext)
                         .load(image)
                         .into(binding.mainProfile)
 

@@ -111,7 +111,7 @@ class AdminHolderActivity : AppCompatActivity() {
                     binding.tvName.text = fullName
                     binding.textView5.text = userType
 
-                    Glide.with(this@AdminHolderActivity)
+                    Glide.with(applicationContext)
                         .load(image)
                         .into(binding.mainProfile)
 
