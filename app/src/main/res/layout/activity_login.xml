@@ -37,7 +37,9 @@
                 android:layout_width="match_parent"
                 android:fontFamily="@font/regular"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:scrollbars="horizontal"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
