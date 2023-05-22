@@ -80,6 +80,7 @@
             android:name=".user.MainActivity"
             android:exported="true"
             android:noHistory="true" />
+
     </application>
 
 </manifest>

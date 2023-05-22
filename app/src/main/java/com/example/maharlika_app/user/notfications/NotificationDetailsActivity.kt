@@ -36,10 +36,10 @@ class NotificationDetailsActivity : AppCompatActivity() {
 
                     val currentDate = "${snapshot.child("currentDate").value}"
                     val currentTime = "${snapshot.child("currentTime").value}"
-                    val newsDescription = "${snapshot.child("newsDescription").value}"
-                    val newsTitle = "${snapshot.child("newsTitle").value}"
+                    val newsDescription = "${snapshot.child("NotifDescription").value}"
+                    val newsTitle = "${snapshot.child("NotifTitle").value}"
                     val id = "${snapshot.child("id").value}"
-                    val image = "${snapshot.child("image").value}"
+                    val image = "${snapshot.child("imageNotif").value}"
                     val uid = "${snapshot.child("uid").value}"
 
                     //set data
