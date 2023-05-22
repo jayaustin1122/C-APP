@@ -12,7 +12,7 @@ import com.example.maharlika_app.admin.AdminHolderActivity
 import com.example.maharlika_app.databinding.ActivityAddNewsBinding
 import com.example.maharlika_app.notifications.NotificationData
 import com.example.maharlika_app.notifications.PushNotification
-import com.example.maharlika_app.notifications.RetrifitInstance
+import com.example.maharlika_app.notifications.RetrofitInstance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -172,7 +172,7 @@ class AddNewsActivity : AppCompatActivity() {
     private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
 
         try{
-            val response = RetrifitInstance.api.postNotification(notification)
+            val response = RetrofitInstance.api.postNotification(notification)
             if (response.isSuccessful) {
                 Log.d(TAG, "Response: ${Gson().toJson(response)}")
             }
